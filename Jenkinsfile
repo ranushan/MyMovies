@@ -15,7 +15,6 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-		sh'mvn sonar:sonar -U -Dsonar.branch.name=$BRANCH_NAME'
             }
         }
         stage('Test') {
