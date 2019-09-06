@@ -15,7 +15,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-		echo $BRANCH_NAME
+		sh 'echo $BRANCH_NAME'
             }
         }
         stage('Test') {
