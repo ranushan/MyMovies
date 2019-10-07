@@ -9,7 +9,7 @@ pipeline {
 	stage('Sonar Analyse') {
 	    steps{
 	    	echo 'Analyse'
-		sh 'mvn sonar:sonar -Dsonar.projectName=MyMovies -Dsonar.projectKey=key_mymovies -Dsonar.java.binaries="/var/lib/jenkins/workspace/ovies_MultiBranchPipeline_master/target/sonar" -Dsonar.host.url=http://so.ranushan.com:9000 -Dsonar.login=58932927f3be6b8d0cb8cceb25737b744294b9c3'
+		sh 'mvn sonar:sonar -Dsonar.projectName=MyMovies -Dsonar.projectKey=key_mymovies -Dsonar.java.binaries="/var/lib/jenkins/workspace/ovies_MultiBranchPipeline_master/target/sonar" -Dsonar.host.url=http://82.253.39.25:9000 -Dsonar.login=c7ae943dd0016e9490cdef88289e33ac4a3b24ee'
 	    }
 	}
         stage('Build') {
