@@ -97,17 +97,19 @@ public class MyMoviesApplication implements CommandLineRunner {
 		user.setEmail("ranusha.n@hotmail.fr");
 		user.setImage("maphoto.jpeg");
 		user.setAge(18);
-
+		
+		
 		userService.addUser(user); // Ajout dans la base de donnee l'utilisateur
 
 		userService.validatePassword(user); // Match password base de donnee et formulaire
 
-		// Favorite
-
+		
 		/*
 		
+		// Favorite
+		
 		Favorite favorite = new Favorite();
-		favorite.setId_movie("49675YTR540046");
+		favorite.setId_movie(String.valueOf(movie.getId()));
 		favorite.setId_user(user.getId());
 		
 		favoriteService.addMovieToFavorite(favorite.getId_user(), favorite.getId_movie());
@@ -119,6 +121,7 @@ public class MyMoviesApplication implements CommandLineRunner {
 		System.out.println(as.toString());
 		
 		*/
+		
 
 		System.out.println("FIN");
 	
