@@ -30,17 +30,17 @@ public class FavoritesController {
 		
 		System.out.println("test Jakson ........");
 		MovieDTO m = new MovieDTO();
-		m.setAdult(true);
-		m.setOriginal_title("Le scielence des agneaux");
+		// m.setAdult(true);
+		// m.setOriginal_title("Le scielence des agneaux");
 
 		String jsonMovie = new ObjectMapper().writeValueAsString(m);
 		
 		ObjectMapper mapper = new ObjectMapper();
 		MovieDTO movie = mapper.readValue(jsonMovie, MovieDTO.class);
 		MovieDTO movie2 = mapper.readerFor(MovieDTO.class).readValue(jsonMovie);
-		
-		System.out.println(jsonMovie);
+
 		User ConnectedUser = userService.getAllUsers().get(0);
+		System.out.println("hh : " + ConnectedUser.getMovie());
 
 		return ConnectedUser;
 		
@@ -54,11 +54,14 @@ public class FavoritesController {
 
 		MovieDTO fromApi = new MovieDTO();
 		fromApi.setId(id);
+		
+		// MovieDTO t = Cree un service qui permet de récupérer l'id de movie
+		
 		ObjectMapper om = new ObjectMapper();
 		String jsonMovie = om.writeValueAsString(fromApi);
-		Movie movie2 = om.readerFor(Movie.class).readValue(jsonMovie);
+		Movie movie = om.readerFor(Movie.class).readValue(jsonMovie);
 		User ConnectedUser = userService.getAllUsers().get(0);
-		ConnectedUser.addMovie(movie2);
+		ConnectedUser.addMovie(movie);
 		userService.updateUser(ConnectedUser);
 		
 		return ConnectedUser;
