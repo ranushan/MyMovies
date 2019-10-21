@@ -7,7 +7,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -48,13 +47,8 @@ public class User {
 	private int age;
 	
 	@ManyToMany(cascade = CascadeType.ALL)
-	private List<Movie> movie=new ArrayList<Movie>();
+	private List<Movie> movie = new ArrayList<Movie>();
 	
-	// Ajouter a verifier (Mettre toString, Get/Set, Constructor)
-	/*
-	@ManyToOne
-	private Movie movie;
-	*/
 	
 	// Override toString
 	
