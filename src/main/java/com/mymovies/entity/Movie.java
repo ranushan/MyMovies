@@ -6,16 +6,12 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-
-import org.hibernate.annotations.TypeDef;
 
 import com.mymovies.dto.GenreDTO;
 import com.mymovies.dto.Production_CompaniesDTO;
@@ -60,7 +56,6 @@ public class Movie {
 	private String homepage;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_movies")
 	private int id;
 	
@@ -122,14 +117,9 @@ public class Movie {
 			  name = "movie_user", 
 			  joinColumns = @JoinColumn(name = "movie_id"), 
 			  inverseJoinColumns = @JoinColumn(name = "user_id"))
-	private List<User> user=new ArrayList<User>();
+	private List<User> user = new ArrayList<User>();
 	
-	// Ajouter a verifier (Mettre toString, Get/Set, Constructor)
-	/*
-	@OneToMany
-	private ArrayList<User> users;
-	*/
-
+	
 	// Override toString
 	
 	@Override
