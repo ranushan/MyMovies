@@ -1,11 +1,17 @@
 package com.mymovies.entity;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 
 @Entity
@@ -41,6 +47,9 @@ public class User {
 	@Column(name = "age")
 	private int age;
 	
+	@ManyToMany(cascade = CascadeType.ALL)
+	private List<Movie> movie=new ArrayList<Movie>();
+	
 	// Ajouter a verifier (Mettre toString, Get/Set, Constructor)
 	/*
 	@ManyToOne
@@ -52,7 +61,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", role=" + role + ", username=" + username + ", password=" + password + ", name="
-				+ name + ", firstname=" + firstname + ", email=" + email + ", image=" + image + ", age=" + age + "]";
+				+ name + ", firstname=" + firstname + ", email=" + email + ", image=" + image + ", age=" + age + ", movie=" + movie + "]";
 	}
 	
 	// Constructor From SuperClass
@@ -64,7 +73,7 @@ public class User {
 	// Constructor Using Fields
 	
 	public User(long id, String role, String username, String password, String name, String firstname, String email,
-			String image, int age) {
+			String image, int age, ArrayList<Movie> movie) {
 		super();
 		this.id = id;
 		this.role = role;
@@ -75,6 +84,7 @@ public class User {
 		this.email = email;
 		this.image = image;
 		this.age = age;
+		this.movie = movie;
 	}
 	
 	// Getters and Setters
@@ -149,6 +159,42 @@ public class User {
 
 	public void setAge(int age) {
 		this.age = age;
+	}
+
+	public List<Movie> getMovie() {
+		return movie;
+	}
+
+	public void setMovie(List<Movie> movie) {
+		this.movie = movie;
+	}
+	
+	public void addMovie(Movie movie) {
+		this.movie.add(movie);
+	}
+	
+	// HashCode and Equals
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 
 }
