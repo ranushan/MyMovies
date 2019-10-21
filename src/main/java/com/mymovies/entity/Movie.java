@@ -2,16 +2,27 @@ package com.mymovies.entity;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+
+import org.hibernate.annotations.TypeDef;
 
 import com.mymovies.dto.GenreDTO;
 import com.mymovies.dto.Production_CompaniesDTO;
 import com.mymovies.dto.Production_CountriesDTO;
 import com.mymovies.dto.Spoken_LanguagesDTO;
 
+@Entity
 public class Movie {
 	
 	// Status 
@@ -36,8 +47,8 @@ public class Movie {
 	@Column(name = "backdrop_path")
 	private String backdrop_path;
 	
-	@Column(name = "belongs_to_collection")
-	private Object belongs_to_collection;
+	@Column(name = "belongs_to_collection",columnDefinition = "json")
+	private String belongs_to_collection;
 	
 	@Column(name = "budget")
 	private int budget;
@@ -45,45 +56,73 @@ public class Movie {
 	@Column(name = "genres")
 	private ArrayList<GenreDTO> genres;
 	
+	@Column(name = "homepage")
 	private String homepage;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id_movies")
 	private int id;
 	
 	@Min(value = 9)
 	@Max(value = 9)
+	@Column(name = "imdb_id")
 	private String imdb_id; // minLength: 9 maxLength: 9
 	
+	@Column(name = "original_language")
 	private String original_language;
 	
+	@Column(name = "original_title")
 	private String original_title;
 	
+	@Column(name = "overview")
 	private String overview;
 	
+	@Column(name = "poster_path")
 	private String poster_path;
 	
+	@Column(name = "production_companies")
 	private ArrayList<Production_CompaniesDTO> production_companies;
 	
+	@Column(name = "production_countries")
 	private ArrayList<Production_CountriesDTO> production_countries;
 
+	@Column(name = "release_date")
 	private Date release_date;
 	
+	@Column(name = "revenue")
 	private int revenue;
 	
+	@Column(name = "runtime")
 	private int runtime;
 	
+	@Column(name = "spoken_languages")
 	private ArrayList<Spoken_LanguagesDTO> spoken_languages;
 
+	@Column(name = "status")
 	private static enumStatus status; // Allowed Values: Rumored, Planned, In Production, Post Production, Released, Canceled
 	
+	@Column(name = "tagline")
 	private String tagline;
 	
+	@Column(name = "title")
 	private String title;
 	
+	@Column(name = "video")
 	private boolean video;
 	
+	@Column(name = "vote_average")
 	private Number vote_average;
 	
+	@Column(name = "vote_count")
 	private int vote_count;
+	
+	@ManyToMany
+	@JoinTable(
+			  name = "movie_user", 
+			  joinColumns = @JoinColumn(name = "movie_id"), 
+			  inverseJoinColumns = @JoinColumn(name = "user_id"))
+	private List<User> user=new ArrayList<User>();
 	
 	// Ajouter a verifier (Mettre toString, Get/Set, Constructor)
 	/*
@@ -113,13 +152,13 @@ public class Movie {
 	
 	// Constructor Using Fields
 
-	public Movie(boolean adult, String backdrop_path, Object belongs_to_collection, int budget,
+	public Movie(boolean adult, String backdrop_path, String belongs_to_collection, int budget,
 			ArrayList<GenreDTO> genres, String homepage, int id, @Min(9) @Max(9) String imdb_id,
 			String original_language, String original_title, String overview, String poster_path,
 			ArrayList<Production_CompaniesDTO> production_companies,
 			ArrayList<Production_CountriesDTO> production_countries, Date release_date, int revenue, int runtime,
 			ArrayList<Spoken_LanguagesDTO> spoken_languages, String tagline, String title, boolean video,
-			Number vote_average, int vote_count) {
+			Number vote_average, int vote_count, ArrayList<User> user) {
 		super();
 		this.adult = adult;
 		this.backdrop_path = backdrop_path;
@@ -144,6 +183,7 @@ public class Movie {
 		this.video = video;
 		this.vote_average = vote_average;
 		this.vote_count = vote_count;
+		this.user = user;
 	}
 
 	// Getters and Setters
@@ -164,11 +204,11 @@ public class Movie {
 		this.backdrop_path = backdrop_path;
 	}
 
-	public Object getBelongs_to_collection() {
+	public String getBelongs_to_collection() {
 		return belongs_to_collection;
 	}
 
-	public void setBelongs_to_collection(Object belongs_to_collection) {
+	public void setBelongs_to_collection(String belongs_to_collection) {
 		this.belongs_to_collection = belongs_to_collection;
 	}
 
@@ -338,6 +378,42 @@ public class Movie {
 
 	public void setVote_count(int vote_count) {
 		this.vote_count = vote_count;
+	}
+
+	public List<User> getUser() {
+		return user;
+	}
+
+	public void setUser(List<User> user) {
+		this.user = user;
+	}
+	
+	public void addMovie(User user) {
+		this.user.add(user);
+	}
+	
+	// HashCode and Equals
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Movie other = (Movie) obj;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 
 }
