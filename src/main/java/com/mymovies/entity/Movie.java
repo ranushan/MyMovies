@@ -119,6 +119,13 @@ public class Movie {
 			  inverseJoinColumns = @JoinColumn(name = "userFavorite_id"))
 	private List<User> userFavorite = new ArrayList<User>();
 	
+	@ManyToMany
+	@JoinTable(
+			  name = "Watchlist",
+			  joinColumns = @JoinColumn(name = "movieWatchlist_id"),
+			  inverseJoinColumns = @JoinColumn(name = "userWatchlist_id"))
+	private List<User> userWatchlist = new ArrayList<User>();
+	
 	
 	// Override toString
 	
@@ -148,7 +155,7 @@ public class Movie {
 			ArrayList<Production_CompaniesDTO> production_companies,
 			ArrayList<Production_CountriesDTO> production_countries, Date release_date, int revenue, int runtime,
 			ArrayList<Spoken_LanguagesDTO> spoken_languages, String tagline, String title, boolean video,
-			Number vote_average, int vote_count, ArrayList<User> userFavorite) {
+			Number vote_average, int vote_count, ArrayList<User> userFavorite, ArrayList<User> userWatchlist) {
 		super();
 		this.adult = adult;
 		this.backdrop_path = backdrop_path;
@@ -174,6 +181,7 @@ public class Movie {
 		this.vote_average = vote_average;
 		this.vote_count = vote_count;
 		this.userFavorite = userFavorite;
+		this.userWatchlist = userWatchlist;
 	}
 
 	// Getters and Setters
@@ -380,6 +388,18 @@ public class Movie {
 	
 	public void addUserFavorite(User userFavorite) {
 		this.userFavorite.add(userFavorite);
+	}
+	
+	public List<User> getUserWatchlist() {
+		return userWatchlist;
+	}
+
+	public void setUserWatchlist(List<User> userWatchlist) {
+		this.userWatchlist = userWatchlist;
+	}
+	
+	public void addUserWatchlist(User userWatchlist) {
+		this.userWatchlist.add(userWatchlist);
 	}
 	
 	// HashCode and Equals
