@@ -49,13 +49,15 @@ public class User {
 	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "userFavorite")
 	private List<Movie> favoriteMovie = new ArrayList<Movie>();
 	
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "userWatchlist")
+	private List<Movie> watchlistMovie = new ArrayList<Movie>();
 	
 	// Override toString
 	
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", role=" + role + ", username=" + username + ", password=" + password + ", name="
-				+ name + ", firstname=" + firstname + ", email=" + email + ", image=" + image + ", age=" + age + ", favoriteMovie=" + favoriteMovie + "]";
+				+ name + ", firstname=" + firstname + ", email=" + email + ", image=" + image + ", age=" + age + ", favoriteMovie=" + favoriteMovie + ", watchlistMovie=" + watchlistMovie + "]";
 	}
 	
 	// Constructor From SuperClass
@@ -67,7 +69,7 @@ public class User {
 	// Constructor Using Fields
 	
 	public User(long id, String role, String username, String password, String name, String firstname, String email,
-			String image, int age, ArrayList<Movie> favoriteMovie) {
+			String image, int age, ArrayList<Movie> favoriteMovie, ArrayList<Movie> watchlistMovie) {
 		super();
 		this.id = id;
 		this.role = role;
@@ -79,6 +81,7 @@ public class User {
 		this.image = image;
 		this.age = age;
 		this.favoriteMovie = favoriteMovie;
+		this.watchlistMovie = watchlistMovie;
 	}
 	
 	// Getters and Setters
@@ -166,6 +169,19 @@ public class User {
 	public void addFavoriteMovie(Movie favoriteMovie) {
 		this.favoriteMovie.add(favoriteMovie);
 		favoriteMovie.addUserFavorite(this);
+	}
+	
+	public List<Movie> getWatchlistMovie() {
+		return watchlistMovie;
+	}
+
+	public void setWatchlistMovie(List<Movie> watchlistMovie) {
+		this.watchlistMovie = watchlistMovie;
+	}
+	
+	public void addWatchlistMovie(Movie watchlistMovie) {
+		this.watchlistMovie.add(watchlistMovie);
+		watchlistMovie.addUserFavorite(this);
 	}
 	
 	// HashCode and Equals
