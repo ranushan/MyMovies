@@ -1,6 +1,8 @@
 package com.mymovies.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,8 +28,9 @@ public class FavoritesController {
 	
 	@RequestMapping(value = "/favorites", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public User getFavorites() throws IOException {
+	public List<MovieDTO> getFavorites() throws IOException {
 		
+		/*
 		System.out.println("test Jakson ........");
 		MovieDTO m = new MovieDTO();
 		// m.setAdult(true);
@@ -38,12 +41,25 @@ public class FavoritesController {
 		ObjectMapper mapper = new ObjectMapper();
 		MovieDTO movie = mapper.readValue(jsonMovie, MovieDTO.class);
 		MovieDTO movie2 = mapper.readerFor(MovieDTO.class).readValue(jsonMovie);
-
+		
 		User ConnectedUser = userService.getAllUsers().get(0);
-		System.out.println("hh : " + ConnectedUser.getMovie());
-
 		return ConnectedUser;
 		
+		*/
+
+		User ConnectedUser = userService.getAllUsers().get(0);
+		List<Movie> listMovies = ConnectedUser.getMovie();
+		
+		MovieController mc = new MovieController();
+
+		List<MovieDTO> listMovieDTO = new ArrayList<>();
+		
+		for(Movie m : listMovies) {
+			listMovieDTO.add(mc.getAPI_Detail(String.valueOf(m.getId())));
+		}
+		
+		return listMovieDTO;
+
 	}
 
 	
@@ -53,10 +69,7 @@ public class FavoritesController {
 	public User setFavorites(@PathVariable("idMovie") int id) throws IOException {
 
 		MovieDTO fromApi = new MovieDTO();
-		fromApi.setId(id);
-		
-		// MovieDTO t = Cree un service qui permet de récupérer l'id de movie
-		
+		fromApi.setId(id);		
 		ObjectMapper om = new ObjectMapper();
 		String jsonMovie = om.writeValueAsString(fromApi);
 		Movie movie = om.readerFor(Movie.class).readValue(jsonMovie);
