@@ -46,8 +46,8 @@ public class User {
 	@Column(name = "age")
 	private int age;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-	private List<Movie> movie = new ArrayList<Movie>();
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "userFavorite")
+	private List<Movie> favoriteMovie = new ArrayList<Movie>();
 	
 	
 	// Override toString
@@ -55,7 +55,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", role=" + role + ", username=" + username + ", password=" + password + ", name="
-				+ name + ", firstname=" + firstname + ", email=" + email + ", image=" + image + ", age=" + age + ", movie=" + movie + "]";
+				+ name + ", firstname=" + firstname + ", email=" + email + ", image=" + image + ", age=" + age + ", favoriteMovie=" + favoriteMovie + "]";
 	}
 	
 	// Constructor From SuperClass
@@ -67,7 +67,7 @@ public class User {
 	// Constructor Using Fields
 	
 	public User(long id, String role, String username, String password, String name, String firstname, String email,
-			String image, int age, ArrayList<Movie> movie) {
+			String image, int age, ArrayList<Movie> favoriteMovie) {
 		super();
 		this.id = id;
 		this.role = role;
@@ -78,7 +78,7 @@ public class User {
 		this.email = email;
 		this.image = image;
 		this.age = age;
-		this.movie = movie;
+		this.favoriteMovie = favoriteMovie;
 	}
 	
 	// Getters and Setters
@@ -155,16 +155,17 @@ public class User {
 		this.age = age;
 	}
 
-	public List<Movie> getMovie() {
-		return movie;
+	public List<Movie> getFavoriteMovie() {
+		return favoriteMovie;
 	}
 
-	public void setMovie(List<Movie> movie) {
-		this.movie = movie;
+	public void setFavoriteMovie(List<Movie> favoriteMovie) {
+		this.favoriteMovie = favoriteMovie;
 	}
 	
-	public void addMovie(Movie movie) {
-		this.movie.add(movie);
+	public void addFavoriteMovie(Movie favoriteMovie) {
+		this.favoriteMovie.add(favoriteMovie);
+		favoriteMovie.addUserFavorite(this);
 	}
 	
 	// HashCode and Equals
