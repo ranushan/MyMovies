@@ -114,8 +114,8 @@ public class Movie {
 	
 	@ManyToMany
 	@JoinTable(
-			  name = "movie_user", 
-			  joinColumns = @JoinColumn(name = "movie_id"), 
+			  name = "movie_user",
+			  joinColumns = @JoinColumn(name = "movie_id"),
 			  inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private List<User> user = new ArrayList<User>();
 	
