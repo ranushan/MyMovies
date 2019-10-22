@@ -48,7 +48,7 @@ public class FavoritesController {
 		*/
 
 		User ConnectedUser = userService.getAllUsers().get(0);
-		List<Movie> listMovies = ConnectedUser.getMovie();
+		List<Movie> listMovies = ConnectedUser.getFavoriteMovie();
 		
 		MovieController mc = new MovieController();
 
@@ -63,7 +63,6 @@ public class FavoritesController {
 	}
 
 	
-	
 	@RequestMapping(value = "/favorites/{idMovie}", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public User setFavorites(@PathVariable("idMovie") int id) throws IOException {
@@ -74,17 +73,12 @@ public class FavoritesController {
 		String jsonMovie = om.writeValueAsString(fromApi);
 		Movie movie = om.readerFor(Movie.class).readValue(jsonMovie);
 		User ConnectedUser = userService.getAllUsers().get(0);
-		ConnectedUser.addMovie(movie);
+		ConnectedUser.addFavoriteMovie(movie);
 		userService.updateUser(ConnectedUser);
 		
 		return ConnectedUser;
 		
 	}
 	
-	
-	
-	
-	
-	
-	
+
 }
