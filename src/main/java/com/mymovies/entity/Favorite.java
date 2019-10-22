@@ -14,11 +14,11 @@ public class Favorite implements Serializable{
 	private static final long serialVersionUID = -2646242663492943675L;
 
 	@Id
-	@Column(name = "id_user")
+	@Column(name = "userFavorite_id")
 	private long id_user;
 	
 	@Id
-	@Column(name = "id_movie", length = 100)
+	@Column(name = "movieFavorite_id", length = 100)
 	private String id_movie;
 
 	// Override toString
