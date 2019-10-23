@@ -12,8 +12,6 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.mymovies.controller.MovieController;
-import com.mymovies.dto.MovieDTO;
 import com.mymovies.entity.Favorite;
 
 @Repository
