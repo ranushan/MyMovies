@@ -14,11 +14,11 @@ public class WatchList implements Serializable{
 	private static final long serialVersionUID = -2872478832216276428L;
 
 	@Id
-	@Column(name = "id_user")
+	@Column(name = "userWatchlist_id")
 	private long id_user;
 	
 	@Id
-	@Column(name = "id_movie", length = 100)
+	@Column(name = "movieWatchlist_id", length = 100)
 	private String id_movie;
 	
 	// Override toString

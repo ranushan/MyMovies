@@ -12,13 +12,11 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.mymovies.controller.MovieController;
-import com.mymovies.dto.MovieDTO;
 import com.mymovies.entity.Favorite;
 
 @Repository
 @Transactional
-public class FavoriteRepositoryImpl implements FavoriteRepository{
+public class FavoriteRepositoryImpl implements FavoriteRepository {
 
 	@Autowired
 	private EntityManager em;
@@ -48,23 +46,24 @@ public class FavoriteRepositoryImpl implements FavoriteRepository{
 	@Override
 	public void addMovieToFavorite(long userId, String movieId) {
 		
-		//Call tmdb api to get MovieDTO for movieID
+		// Verify if Favorite already exist
 		
-		MovieController movieController = new MovieController();
-		MovieDTO movieDTO = movieController.getAPI_Detail(movieId);
+		ArrayList<String> res = this.getFavoriteMoviesListFromUser(userId);
 		
-		//getFavirite or create favirite if dosent exist ( si elle existe dans les favorits ) 
-		
-		
-		
-		//if favorite is created //favoriteMovie.setId_user(userId);
-	
-		//favoriteMovie.getMovies().add(themovieDTOFromAPI Casted to Entity Movie
+		for(String r : res) {
+			if(movieId == r) {
+				return;
+			}
+		}
+
 		try {
 			
-			Favorite favoriteMovie = new Favorite();
-			//favoriteMovie.setId_user(userId);
-			//favoriteMovie.setId_movie(movieId);
+			//Call tmdb api to get MovieDTO for movieID
+			/*
+			MovieController movieController = new MovieController();
+			MovieDTO movieDTO = movieController.getAPI_Detail(movieId);*/
+			
+			Favorite favoriteMovie = new Favorite(userId, movieId);
 			
 			em.persist(favoriteMovie);
 			em.flush();

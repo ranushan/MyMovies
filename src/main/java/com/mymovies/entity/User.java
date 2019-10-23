@@ -1,11 +1,18 @@
 package com.mymovies.entity;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -41,18 +48,24 @@ public class User {
 	@Column(name = "age")
 	private int age;
 	
-	// Ajouter a verifier (Mettre toString, Get/Set, Constructor)
-	/*
-	@ManyToOne
-	private Movie movie;
-	*/
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "userFavorite")
+	@JsonIgnore
+	private List<Movie> favoriteMovie = new ArrayList<Movie>();
+	
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "userWatchlist")
+	@JsonIgnore
+	private List<Movie> watchlistMovie = new ArrayList<Movie>();
+	
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "userRated")
+	@JsonIgnore
+	private List<Movie> ratedMovie = new ArrayList<Movie>();
 	
 	// Override toString
 	
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", role=" + role + ", username=" + username + ", password=" + password + ", name="
-				+ name + ", firstname=" + firstname + ", email=" + email + ", image=" + image + ", age=" + age + "]";
+				+ name + ", firstname=" + firstname + ", email=" + email + ", image=" + image + ", age=" + age + ", favoriteMovie=" + favoriteMovie + ", watchlistMovie=" + watchlistMovie + ", ratedMovie=" + ratedMovie + "]";
 	}
 	
 	// Constructor From SuperClass
@@ -64,7 +77,7 @@ public class User {
 	// Constructor Using Fields
 	
 	public User(long id, String role, String username, String password, String name, String firstname, String email,
-			String image, int age) {
+			String image, int age, ArrayList<Movie> favoriteMovie, ArrayList<Movie> watchlistMovie, ArrayList<Movie> ratedMovie) {
 		super();
 		this.id = id;
 		this.role = role;
@@ -75,6 +88,9 @@ public class User {
 		this.email = email;
 		this.image = image;
 		this.age = age;
+		this.favoriteMovie = favoriteMovie;
+		this.watchlistMovie = watchlistMovie;
+		this.ratedMovie = ratedMovie;
 	}
 	
 	// Getters and Setters
@@ -149,6 +165,69 @@ public class User {
 
 	public void setAge(int age) {
 		this.age = age;
+	}
+
+	public List<Movie> getFavoriteMovie() {
+		return favoriteMovie;
+	}
+
+	public void setFavoriteMovie(List<Movie> favoriteMovie) {
+		this.favoriteMovie = favoriteMovie;
+	}
+	
+	public void addFavoriteMovie(Movie favoriteMovie) {
+		this.favoriteMovie.add(favoriteMovie);
+		favoriteMovie.addUserFavorite(this);
+	}
+	
+	public List<Movie> getWatchlistMovie() {
+		return watchlistMovie;
+	}
+
+	public void setWatchlistMovie(List<Movie> watchlistMovie) {
+		this.watchlistMovie = watchlistMovie;
+	}
+	
+	public void addWatchlistMovie(Movie watchlistMovie) {
+		this.watchlistMovie.add(watchlistMovie);
+		watchlistMovie.addUserWatchlist(this);
+	}
+	
+	public List<Movie> getRatedMovie() {
+		return ratedMovie;
+	}
+
+	public void setRatedMovie(List<Movie> ratedMovie) {
+		this.ratedMovie = ratedMovie;
+	}
+	
+	public void addRatedMovie(Movie ratedMovie) {
+		this.ratedMovie.add(ratedMovie);
+		ratedMovie.addUserRated(this);
+	}
+	
+	// HashCode and Equals
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 
 }

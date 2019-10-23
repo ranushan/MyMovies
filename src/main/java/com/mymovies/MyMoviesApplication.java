@@ -8,9 +8,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.mymovies.entity.Favorite;
+import com.mymovies.entity.Movie;
+import com.mymovies.entity.Rated;
 import com.mymovies.entity.User;
+import com.mymovies.entity.WatchList;
 import com.mymovies.service.FavoriteService;
+import com.mymovies.service.RatedService;
 import com.mymovies.service.UserService;
+import com.mymovies.service.WatchListService;
 
 @SpringBootApplication
 public class MyMoviesApplication implements CommandLineRunner {
@@ -20,6 +25,12 @@ public class MyMoviesApplication implements CommandLineRunner {
 
 	@Autowired
 	FavoriteService favoriteService;
+	
+	@Autowired
+	WatchListService watchlistService;
+	
+	@Autowired
+	RatedService ratedService;
 
 
 	public static void main(String[] args) {
@@ -97,31 +108,52 @@ public class MyMoviesApplication implements CommandLineRunner {
 		user.setEmail("ranusha.n@hotmail.fr");
 		user.setImage("maphoto.jpeg");
 		user.setAge(18);
-
+		
+		
 		userService.addUser(user); // Ajout dans la base de donnee l'utilisateur
 
 		userService.validatePassword(user); // Match password base de donnee et formulaire
 
-		// Favorite
-
 		/*
+		 
+		// Movie
+		 
+		Movie movie = new Movie();
+		movie.setId(11);
+		
+		// Favorite
 		
 		Favorite favorite = new Favorite();
-		favorite.setId_movie("49675YTR540046");
+		favorite.setId_movie(String.valueOf(movie.getId()));
 		favorite.setId_user(user.getId());
 		
 		favoriteService.addMovieToFavorite(favorite.getId_user(), favorite.getId_movie());
-		favoriteService.addMovieToFavorite(2, "aaaa");
-		
-		favoriteService.removeMovieToFavorite(2, "aaaa");
 
 		ArrayList<String> as = favoriteService.getFavoriteMoviesListFromUser(user.getId());
 		System.out.println(as.toString());
 		
+		// Watchlist
+		 
+		WatchList watchList = new WatchList();
+		watchList.setId_movie(String.valueOf(movie.getId()));
+		watchList.setId_user(user.getId());
+		
+		watchlistService.addWatchListToMovie(watchList.getId_user(), watchList.getId_movie());
+		
+		// Rated
+		
+		Rated rated = new Rated();
+		rated.setId_movie(String.valueOf(movie.getId()));
+		rated.setId_user(user.getId());
+		rated.setRate(10);
+		
+		ratedService.addRatedToMovie(rated.getId_user(), rated.getId_movie());
+		
 		*/
+			
 
 		System.out.println("FIN");
-
+	
 	}
 
 }

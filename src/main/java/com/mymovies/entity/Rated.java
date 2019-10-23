@@ -14,11 +14,11 @@ public class Rated implements Serializable{
 	private static final long serialVersionUID = -2319939145688277496L;
 
 	@Id
-	@Column(name = "id_user")
+	@Column(name = "userRated_id")
 	private long id_user;
 
 	@Id
-	@Column(name = "id_movie", length = 100)
+	@Column(name = "movieRated_id", length = 100)
 	private String id_movie;
 	
 	// Override toString

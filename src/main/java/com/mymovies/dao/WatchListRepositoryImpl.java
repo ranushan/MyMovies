@@ -46,11 +46,19 @@ public class WatchListRepositoryImpl implements WatchListRepository{
 	@Override
 	public void addWatchListToMovie(long userId, String movieId) {
 		
+		// Verify if Watchlist already exist
+		
+		ArrayList<String> res = this.getWatchListMoviesListFromUser(userId);
+		
+		for(String r : res) {
+			if(movieId == r) {
+				return;
+			}
+		}
+		
 		try {
 			
-			WatchList watchListMovie = new WatchList();
-			watchListMovie.setId_user(userId);
-			watchListMovie.setId_movie(movieId);
+			WatchList watchListMovie = new WatchList(userId, movieId);
 			
 			em.persist(watchListMovie);
 			em.flush();
