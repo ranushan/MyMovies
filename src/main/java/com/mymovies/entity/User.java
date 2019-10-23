@@ -185,7 +185,7 @@ public class User {
 	
 	public void addWatchlistMovie(Movie watchlistMovie) {
 		this.watchlistMovie.add(watchlistMovie);
-		watchlistMovie.addUserFavorite(this);
+		watchlistMovie.addUserWatchlist(this);
 	}
 	
 	// HashCode and Equals
