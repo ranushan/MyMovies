@@ -7,7 +7,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.mymovies.controller.MovieController;
 import com.mymovies.entity.Favorite;
+import com.mymovies.entity.Movie;
 import com.mymovies.entity.User;
 import com.mymovies.service.FavoriteService;
 import com.mymovies.service.UserService;
@@ -20,8 +22,8 @@ public class MyMoviesApplication implements CommandLineRunner {
 
 	@Autowired
 	FavoriteService favoriteService;
-
-
+	
+	
 	public static void main(String[] args) {
 		SpringApplication.run(MyMoviesApplication.class, args);
 	}
@@ -102,10 +104,14 @@ public class MyMoviesApplication implements CommandLineRunner {
 		userService.addUser(user); // Ajout dans la base de donnee l'utilisateur
 
 		userService.validatePassword(user); // Match password base de donnee et formulaire
-
 		
 		/*
 		
+		// Movie
+		
+		Movie movie = new Movie();
+		movie.setId(11);	
+	
 		// Favorite
 		
 		Favorite favorite = new Favorite();
@@ -113,16 +119,13 @@ public class MyMoviesApplication implements CommandLineRunner {
 		favorite.setId_user(user.getId());
 		
 		favoriteService.addMovieToFavorite(favorite.getId_user(), favorite.getId_movie());
-		favoriteService.addMovieToFavorite(2, "aaaa");
 		
-		favoriteService.removeMovieToFavorite(2, "aaaa");
-
 		ArrayList<String> as = favoriteService.getFavoriteMoviesListFromUser(user.getId());
 		System.out.println(as.toString());
 		
 		*/
 		
-
+		
 		System.out.println("FIN");
 	
 	}
