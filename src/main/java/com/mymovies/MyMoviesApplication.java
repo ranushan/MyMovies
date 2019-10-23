@@ -9,9 +9,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.mymovies.entity.Favorite;
 import com.mymovies.entity.Movie;
+import com.mymovies.entity.Rated;
 import com.mymovies.entity.User;
 import com.mymovies.entity.WatchList;
 import com.mymovies.service.FavoriteService;
+import com.mymovies.service.RatedService;
 import com.mymovies.service.UserService;
 import com.mymovies.service.WatchListService;
 
@@ -26,6 +28,9 @@ public class MyMoviesApplication implements CommandLineRunner {
 	
 	@Autowired
 	WatchListService watchlistService;
+	
+	@Autowired
+	RatedService ratedService;
 
 
 	public static void main(String[] args) {
@@ -135,7 +140,17 @@ public class MyMoviesApplication implements CommandLineRunner {
 		
 		watchlistService.addWatchListToMovie(watchList.getId_user(), watchList.getId_movie());
 		
+		// Rated
+		
+		Rated rated = new Rated();
+		rated.setId_movie(String.valueOf(movie.getId()));
+		rated.setId_user(user.getId());
+		rated.setRate(10);
+		
+		ratedService.addRatedToMovie(rated.getId_user(), rated.getId_movie());
+		
 		*/
+			
 
 		System.out.println("FIN");
 	
