@@ -46,11 +46,19 @@ public class RatedRepositoryImpl implements RatedRepository{
 	@Override
 	public void addRatedToMovie(long userId, String movieId) {
 		
+		// Verify if Rated already exist
+		
+		ArrayList<String> res = this.getRatedMoviesListFromUser(userId);
+		
+		for(String r : res) {
+			if(movieId == r) {
+				return;
+			}
+		}
+		
 		try {
 			
-			Rated ratedMovie = new Rated();
-			ratedMovie.setId_user(userId);
-			ratedMovie.setId_movie(movieId);
+			Rated ratedMovie = new Rated(userId, movieId);
 			
 			em.persist(ratedMovie);
 			em.flush();
