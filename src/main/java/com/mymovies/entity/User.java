@@ -56,12 +56,16 @@ public class User {
 	@JsonIgnore
 	private List<Movie> watchlistMovie = new ArrayList<Movie>();
 	
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "userRated")
+	@JsonIgnore
+	private List<Movie> ratedMovie = new ArrayList<Movie>();
+	
 	// Override toString
 	
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", role=" + role + ", username=" + username + ", password=" + password + ", name="
-				+ name + ", firstname=" + firstname + ", email=" + email + ", image=" + image + ", age=" + age + ", favoriteMovie=" + favoriteMovie + ", watchlistMovie=" + watchlistMovie + "]";
+				+ name + ", firstname=" + firstname + ", email=" + email + ", image=" + image + ", age=" + age + ", favoriteMovie=" + favoriteMovie + ", watchlistMovie=" + watchlistMovie + ", ratedMovie=" + ratedMovie + "]";
 	}
 	
 	// Constructor From SuperClass
@@ -73,7 +77,7 @@ public class User {
 	// Constructor Using Fields
 	
 	public User(long id, String role, String username, String password, String name, String firstname, String email,
-			String image, int age, ArrayList<Movie> favoriteMovie, ArrayList<Movie> watchlistMovie) {
+			String image, int age, ArrayList<Movie> favoriteMovie, ArrayList<Movie> watchlistMovie, ArrayList<Movie> ratedMovie) {
 		super();
 		this.id = id;
 		this.role = role;
@@ -86,6 +90,7 @@ public class User {
 		this.age = age;
 		this.favoriteMovie = favoriteMovie;
 		this.watchlistMovie = watchlistMovie;
+		this.ratedMovie = ratedMovie;
 	}
 	
 	// Getters and Setters
@@ -185,7 +190,20 @@ public class User {
 	
 	public void addWatchlistMovie(Movie watchlistMovie) {
 		this.watchlistMovie.add(watchlistMovie);
-		watchlistMovie.addUserFavorite(this);
+		watchlistMovie.addUserWatchlist(this);
+	}
+	
+	public List<Movie> getRatedMovie() {
+		return ratedMovie;
+	}
+
+	public void setRatedMovie(List<Movie> ratedMovie) {
+		this.ratedMovie = ratedMovie;
+	}
+	
+	public void addRatedMovie(Movie ratedMovie) {
+		this.ratedMovie.add(ratedMovie);
+		ratedMovie.addUserRated(this);
 	}
 	
 	// HashCode and Equals
