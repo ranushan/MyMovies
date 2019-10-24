@@ -34,7 +34,7 @@ public class RatedController {
 	
 	@RequestMapping(value = "/rates/{idMovie}", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public User setWatchlists(@PathVariable("idMovie") int id) {
+	public User setRates(@PathVariable("idMovie") int id) {
 
 		User rate = ratedService.setRated(id);
 		return rate;
