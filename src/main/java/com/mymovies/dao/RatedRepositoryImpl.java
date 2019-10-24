@@ -44,7 +44,7 @@ public class RatedRepositoryImpl implements RatedRepository{
 	}
 
 	@Override
-	public void addRatedToMovie(long userId, String movieId) {
+	public void addRatedToMovie(long userId, String movieId, int rate) {
 		
 		// Verify if Rated already exist
 		
@@ -58,7 +58,7 @@ public class RatedRepositoryImpl implements RatedRepository{
 		
 		try {
 			
-			Rated ratedMovie = new Rated(userId, movieId);
+			Rated ratedMovie = new Rated(userId, movieId, rate);
 			
 			em.persist(ratedMovie);
 			em.flush();
