@@ -140,6 +140,13 @@ public class MyMoviesApplication implements CommandLineRunner {
 		
 		watchlistService.addWatchListToMovie(watchList.getId_user(), watchList.getId_movie());
 		
+		*/
+		
+		// Movie
+		 
+		Movie movie = new Movie();
+		movie.setId(11);
+		
 		// Rated
 		
 		Rated rated = new Rated();
@@ -147,9 +154,9 @@ public class MyMoviesApplication implements CommandLineRunner {
 		rated.setId_user(user.getId());
 		rated.setRate(10);
 		
-		ratedService.addRatedToMovie(rated.getId_user(), rated.getId_movie());
+		ratedService.addRatedToMovie(rated.getId_user(), rated.getId_movie(), rated.getRate());
 		
-		*/
+		
 			
 
 		System.out.println("FIN");
