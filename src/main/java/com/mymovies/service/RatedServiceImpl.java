@@ -23,8 +23,8 @@ public class RatedServiceImpl implements RatedService{
 	UserService userService;
 	
 	@Override
-	public void addRatedToMovie(long userId, String movieId) {
-		ratedRepository.addRatedToMovie(userId, movieId);	
+	public void addRatedToMovie(long userId, String movieId, int rate) {
+		ratedRepository.addRatedToMovie(userId, movieId, rate);	
 	}
 
 	@Override
