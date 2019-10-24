@@ -21,11 +21,14 @@ public class Rated implements Serializable{
 	@Column(name = "movieRated_id", length = 100)
 	private String id_movie;
 	
+	@Column(name = "rate")
+	private int rate;
+	
 	// Override toString
 	
 	@Override
 	public String toString() {
-		return "Rated [id_user=" + id_user + ", id_movie=" + id_movie + "]";
+		return "Rated [id_user=" + id_user + ", id_movie=" + id_movie + ", rate=" + rate + "]";
 	}
 
 	// Constructor From SuperClass
@@ -36,10 +39,11 @@ public class Rated implements Serializable{
 
 	// Constructor Using Fields
 	
-	public Rated(long id_user, String id_movie) {
+	public Rated(long id_user, String id_movie, int rate) {
 		super();
 		this.id_user = id_user;
 		this.id_movie = id_movie;
+		this.rate = rate;
 	}
 	
 	// Getters and Setters
@@ -58,6 +62,14 @@ public class Rated implements Serializable{
 
 	public void setId_movie(String id_movie) {
 		this.id_movie = id_movie;
+	}
+
+	public int getRate() {
+		return rate;
+	}
+
+	public void setRate(int rate) {
+		this.rate = rate;
 	}
 	
 }
