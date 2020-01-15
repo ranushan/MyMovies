@@ -36,6 +36,8 @@ public class MovieDTO {
 	
 	private String homepage;
 	
+	private Number popularity;
+	
 	private int id;
 	
 	@Min(value = 9)
@@ -83,7 +85,7 @@ public class MovieDTO {
 				+ ", id=" + id + ", imdb_id=" + imdb_id + ", original_language=" + original_language
 				+ ", original_title=" + original_title + ", overview=" + overview + ", poster_path=" + poster_path
 				+ ", production_companies=" + production_companies + ", production_countries=" + production_countries
-				+ ", release_date=" + release_date + ", revenue=" + revenue + ", runtime=" + runtime
+				+ ", release_date=" + release_date + ", revenue=" + revenue + ", popularity=" + popularity + ", runtime=" + runtime
 				+ ", spoken_languages=" + spoken_languages + ", status=" + status + ", tagline=" + tagline + ", title="
 				+ title + ", video=" + video + ", vote_average=" + vote_average + ", vote_count=" + vote_count + "]";
 	}
@@ -100,7 +102,7 @@ public class MovieDTO {
 			ArrayList<GenreDTO> genres, String homepage, int id, @Min(9) @Max(9) String imdb_id,
 			String original_language, String original_title, String overview, String poster_path,
 			ArrayList<Production_CompaniesDTO> production_companies,
-			ArrayList<Production_CountriesDTO> production_countries, Date release_date, int revenue, int runtime,
+			ArrayList<Production_CountriesDTO> production_countries, Date release_date, int revenue,Number popularity, int runtime,
 			ArrayList<Spoken_LanguagesDTO> spoken_languages, String tagline, String title, boolean video,
 			Number vote_average, int vote_count) {
 		super();
@@ -120,6 +122,7 @@ public class MovieDTO {
 		this.production_countries = production_countries;
 		this.release_date = release_date;
 		this.revenue = revenue;
+		this.popularity = popularity;
 		this.runtime = runtime;
 		this.spoken_languages = spoken_languages;
 		this.tagline = tagline;
@@ -259,6 +262,14 @@ public class MovieDTO {
 		this.revenue = revenue;
 	}
 
+	public Number getPopularity() {
+		return popularity;
+	}
+
+	public void setPopularity(Number popularity) {
+		this.popularity = popularity;
+	}
+	
 	public int getRuntime() {
 		return runtime;
 	}
