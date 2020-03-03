@@ -84,7 +84,7 @@ pipeline {
             }
 
             steps {
-                sh 'mvn verify -Dsurefire.skip=true'
+                sh 'mvn verify'
             }
 
             post {
