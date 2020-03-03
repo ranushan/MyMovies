@@ -148,7 +148,7 @@ pipeline {
         stage('Deploy Artifact To Nexus') {
             
             when {
-                anyOf { branch 'master'; branch 'develop' }
+                anyOf { branch 'master'; branch 'develop'; branch 'feature/back/02032020_Manage_Docker' }
             }
         
             steps {
