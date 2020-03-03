@@ -85,8 +85,8 @@ pipeline {
 
             steps {
                 sh 'mvn verify -Dsurefire.skip=true'
-                stash(name: 'artifact', includes: 'target/*.war')
-                stash(name: 'pom', includes: 'pom.xml')
+                stash includes: '**/target/*.jar', name: 'artifact'
+                stash includes: 'pom.xml', name: 'pom'
                 // to add artifacts in jenkins pipeline tab (UI)
                 archiveArtifacts 'target/*.war'
             }
