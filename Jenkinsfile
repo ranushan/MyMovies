@@ -18,11 +18,11 @@ pipeline {
         SONARQUBE_PORT = "9000"
     }
 
-    post {
+    /*post {
 	    always {
             cleanWs()
         }
-    }
+    }*/
     
     stages {
 
