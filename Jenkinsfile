@@ -85,18 +85,23 @@ pipeline {
 
             steps {
                 sh 'mvn verify -Dsurefire.skip=true'
+
+                stash includes: '**/target/*.jar', name: 'artifact'
+                stash includes: 'pom.xml', name: 'pom'
+                // to add artifacts in jenkins pipeline tab (UI)
+                archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
             }
 
             post {
                 always {
                     junit 'target/failsafe-reports/**/*.xml'
                 }
-                success {
+                /*success {
                     stash includes: '**/target/*.jar', name: 'artifact'
                     stash includes: 'pom.xml', name: 'pom'
                     // to add artifacts in jenkins pipeline tab (UI)
                     archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
-                }
+                }*/
             }
         
         }
