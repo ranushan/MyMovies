@@ -8,7 +8,7 @@ pipeline {
         // This can be http or https
         NEXUS_PROTOCOL = "http"
         // Where your Nexus is running. In my case:
-        NEXUS_URL = "nexustest.pagekite.me"
+        NEXUS_URL = "754256bd.ngrok.io"
         // Repository where we will upload the artifact
         NEXUS_REPOSITORY = "maven-snapshots"
         // Jenkins credential id to authenticate to Nexus OSS
@@ -198,10 +198,38 @@ pipeline {
         
         }
 
-        stage('Deploy to Staging Servers') {
+        stage('My Deploy to Staging Servers') {
 
             when {
                 anyOf { branch 'master'; branch 'develop'; branch 'feature/back/02032020_Manage_Docker' }
+            }
+
+            steps {
+                script {
+                    pom = readMavenPom file: "pom.xml"
+                    repoPath = "${pom.groupId}".replace(".", "/") + "/${pom.artifactId}"
+                    version = pom.version
+                    artifactId = pom.artifactId
+                    withEnv(["ANSIBLE_HOST_KEY_CHECKING=False", "APP_NAME=${artifactId}", "repoPath=${repoPath}", "version=${version}"]) {
+                    sh '''
+                    
+                        curl --silent "http://$NEXUS_URL/repository/maven-snapshots/${repoPath}/${version}/maven-metadata.xml" > tmp &&
+                        egrep '<value>+([0-9\\-\\.]*)' tmp > tmp2 &&
+                        tail -n 1 tmp2 > tmp3 &&
+                        tr -d "</value>[:space:]" < tmp3 > tmp4 &&
+                        REPO_VERSION=$(cat tmp4) &&
+                        export APP_SRC_URL="http://${NEXUS_URL}/repository/maven-snapshots/${repoPath}/${version}/${APP_NAME}-${REPO_VERSION}.war"
+                    '''
+                    }
+                }
+            }
+
+        }
+
+        stage('Deploy to Staging Servers') {
+
+            when {
+                anyOf { branch 'master'; branch 'develop' }
             }
 
             steps {
