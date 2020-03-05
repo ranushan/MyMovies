@@ -1,5 +1,6 @@
 package com.mymovies.controller;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -9,10 +10,17 @@ import org.springframework.web.client.RestTemplate;
 @Controller
 public class DiscoverController {
 
-	String BASE_URL = "https://api.themoviedb.org/3/discover/movie";
-	String BASE_URL_IMAGE = "https://image.tmbd.org/t/p/w342";
-	String API_KEY = "?api_key=0a2eea61408ba5facdd057f7d11d2f58";
-	String Language = "&language=fr-FR";
+	@Value("${resource.api.url}")
+	private String BASE_URL;
+	
+	@Value("${resource.api.url.image}")
+	private String BASE_URL_IMAGE;
+	
+	@Value("${resource.api.key}")
+	private String API_KEY;
+	
+	@Value("${resource.api.language}")
+	private String Language;
 
 	//https://api.themoviedb.org/3/discover/movie?api_key=0a2eea61408ba5facdd057f7d11d2f58&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&year=2019
 	

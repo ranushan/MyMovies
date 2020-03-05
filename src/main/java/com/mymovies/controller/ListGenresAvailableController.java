@@ -2,6 +2,7 @@ package com.mymovies.controller;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,10 +16,17 @@ import com.mymovies.dto.ListGenresAvailableDTO;
 @Controller
 public class ListGenresAvailableController {
 	
-	String BASE_URL = "https://api.themoviedb.org/3/genre/movie/list";
-	String BASE_URL_IMAGE = "https://image.tmbd.org/t/p/w342";
-	String API_KEY = "?api_key=0a2eea61408ba5facdd057f7d11d2f58";
-	String Language = "&language=fr-FR";
+	@Value("${resource.api.url}")
+	private String BASE_URL;
+	
+	@Value("${resource.api.url.image}")
+	private String BASE_URL_IMAGE;
+	
+	@Value("${resource.api.key}")
+	private String API_KEY;
+	
+	@Value("${resource.api.language}")
+	private String Language;
 	
 	@RequestMapping(value = "/data/listgenres", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
